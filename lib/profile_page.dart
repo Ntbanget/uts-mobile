@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
   final String username;
-  final VoidCallback onBackToDashboard; // 🔹 Callback untuk tombol kembali
+  final VoidCallback onBackToDashboard;
 
   const ProfilePage({
     super.key,

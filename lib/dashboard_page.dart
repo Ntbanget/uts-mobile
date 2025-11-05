@@ -102,7 +102,7 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 }
 
-// ================= HALAMAN BERANDA (HOME) ==================
+// HALAMAN BERANDA (HOME)
 class _HomeContent extends StatelessWidget {
   final String username;
   const _HomeContent({required this.username});
@@ -114,7 +114,7 @@ class _HomeContent extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Header sapaan dengan emoji 👋
+          // Header sapaan
           Row(
             children: [
               Text(
@@ -143,7 +143,7 @@ class _HomeContent extends StatelessWidget {
           ),
           const SizedBox(height: 25),
 
-          // Grid Menu (3 item)
+          // 3 item
           GridView.count(
             crossAxisCount: 3,
             shrinkWrap: true,
