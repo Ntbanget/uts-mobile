@@ -183,7 +183,7 @@ class _HomeContent extends StatelessWidget {
               _buildMenuItem(
                 icon: Icons.settings,
                 color: Colors.green,
-                label: "catatan",
+                label: "Pengaturan",
                 onTap: () {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
