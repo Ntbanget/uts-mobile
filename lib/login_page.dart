@@ -11,6 +11,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  bool _obscurePassword = true;
 
   void _login() {
     String username = usernameController.text.isEmpty
@@ -52,38 +53,73 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 40),
 
-              // Username
+              // Username Field
               TextField(
                 controller: usernameController,
                 style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
+                  labelText: "Username",
+                  labelStyle: const TextStyle(color: Colors.deepPurpleAccent),
                   filled: true,
                   fillColor: const Color(0xFF1E1E1E),
                   hintText: "Masukkan Username",
                   hintStyle: const TextStyle(color: Colors.grey),
-                  prefixIcon: const Icon(Icons.person, color: Colors.grey),
+                  prefixIcon: const Icon(
+                    Icons.person, // gunakan Icons.person
+                    color: Colors.deepPurpleAccent,
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide.none,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                      color: Colors.deepPurpleAccent,
+                    ),
                   ),
                 ),
               ),
               const SizedBox(height: 16),
 
-              // Password
+              // Password Field
               TextField(
                 controller: passwordController,
-                obscureText: true,
+                obscureText: _obscurePassword,
                 style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
+                  labelText: "Password",
+                  labelStyle: const TextStyle(color: Colors.deepPurpleAccent),
                   filled: true,
                   fillColor: const Color(0xFF1E1E1E),
                   hintText: "Masukkan Password",
                   hintStyle: const TextStyle(color: Colors.grey),
-                  prefixIcon: const Icon(Icons.lock, color: Colors.grey),
+                  prefixIcon: const Icon(
+                    Icons.lock, // gunakan Icons.lock
+                    color: Colors.deepPurpleAccent,
+                  ),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscurePassword
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                      color: Colors.grey,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscurePassword = !_obscurePassword;
+                      });
+                    },
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide.none,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                      color: Colors.deepPurpleAccent,
+                    ),
                   ),
                 ),
               ),

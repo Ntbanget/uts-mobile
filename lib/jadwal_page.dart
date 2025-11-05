@@ -6,7 +6,7 @@ class JadwalPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Map<String, String>> jadwalList = [
-      {'judul': 'statistik', 'waktu': '08:30 - 09:30', 'tempat': 'GP-609'},
+      {'judul': 'statistika', 'waktu': '08:30 - 09:30', 'tempat': 'GP-609'},
       {
         'judul': 'Mobile Programming',
         'waktu': '10:00 - 11:00',

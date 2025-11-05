@@ -72,7 +72,7 @@ class ProfilePage extends StatelessWidget {
                     Divider(color: Colors.white24),
                     _ProfileItem(
                       'Alamat',
-                      'Jalan Dokter Cipto No.24, Karangtempel, Kec. Semarang Tim., Kota Semarang,',
+                      'Jalan Dokter Cipto No.24,Kota Semarang,',
                     ),
                   ],
                 ),

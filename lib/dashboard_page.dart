@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'login_page.dart';
-
 import 'jadwal_page.dart';
 import 'catatan_page.dart';
 import 'statistik_page.dart';
@@ -26,7 +25,7 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> pages = [
-      const _HomeContent(),
+      _HomeContent(username: widget.username),
       const JadwalPage(),
       const CatatanPage(),
       const StatistikPage(),
@@ -42,26 +41,36 @@ class _DashboardPageState extends State<DashboardPage> {
 
     return Scaffold(
       backgroundColor: const Color(0xFF121212),
+
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Text(
-          'Hai, ${widget.username} 👋',
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
+        backgroundColor: Colors.deepPurpleAccent,
+        title: Row(
+          children: [
+            const Icon(Icons.school, color: Colors.white),
+            const SizedBox(width: 10),
+            const Text(
+              "Sistem Akademik Mahasiswa",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
         actions: [
           IconButton(
+            icon: const Icon(Icons.notifications, color: Colors.white),
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("Tidak ada notifikasi baru")),
+              );
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.logout, color: Colors.white),
             onPressed: () {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const LoginPage()),
               );
             },
-            icon: const Icon(Icons.logout, color: Colors.white),
-            tooltip: 'Keluar',
           ),
         ],
       ),
@@ -93,117 +102,129 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 }
 
-// HALAMAN UTAMA (HOME)
+// ================= HALAMAN BERANDA (HOME) ==================
 class _HomeContent extends StatelessWidget {
-  const _HomeContent();
+  final String username;
+  const _HomeContent({required this.username});
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Aktivitas Terbaru',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
+          // Header sapaan dengan emoji 👋
+          Row(
+            children: [
+              Text(
+                "Halo, $username",
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(width: 6),
+              const Icon(Icons.waving_hand, color: Colors.amber),
+            ],
           ),
           const SizedBox(height: 12),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                _buildCard('Aljabar GP-609', Colors.purple, '10:00 AM'),
-                _buildCard('Startup Bisnis GP-607', Colors.orange, '13:30 PM'),
-                _buildCard(
-                  'Sistem Basis Data GP-609',
-                  Colors.blueAccent,
-                  '16:00 PM',
-                ),
-              ],
+
+          // Banner
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Image.asset(
+              'assets/banner.png',
+              height: 150,
+              width: double.infinity,
+              fit: BoxFit.cover,
             ),
           ),
           const SizedBox(height: 25),
-          const Text(
-            'Progres Mingguan',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
+
+          // Grid Menu (3 item)
+          GridView.count(
+            crossAxisCount: 3,
+            shrinkWrap: true,
+            crossAxisSpacing: 20,
+            mainAxisSpacing: 20,
+            physics: const NeverScrollableScrollPhysics(),
+            children: [
+              _buildMenuItem(
+                icon: Icons.person,
+                color: Colors.deepPurpleAccent,
+                label: "Profil",
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProfilePage(
+                        username: username,
+                        onBackToDashboard: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ),
+                  );
+                },
+              ),
+              _buildMenuItem(
+                icon: Icons.list,
+                color: Colors.orangeAccent,
+                label: "jadwal",
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const JadwalPage()),
+                  );
+                },
+              ),
+              _buildMenuItem(
+                icon: Icons.settings,
+                color: Colors.green,
+                label: "catatan",
+                onTap: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Halaman pengaturan belum tersedia"),
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
-          const SizedBox(height: 12),
-          _buildProgressCard('Menyelesaikan tugas', 0.8, Colors.green),
-          _buildProgressCard('Rapat & koordinasi', 0.6, Colors.orange),
-          _buildProgressCard('Belajar mandiri', 0.5, Colors.blueAccent),
         ],
       ),
     );
   }
 
-  Widget _buildCard(String title, Color color, String time) {
-    return Container(
-      width: 160,
-      height: 100,
-      margin: const EdgeInsets.only(right: 12),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+  // Widget untuk item grid
+  Widget _buildMenuItem({
+    required IconData icon,
+    required Color color,
+    required String label,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          color: const Color(0xFF1E1E1E),
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(color: color.withValues(alpha: 0.7), width: 1.5),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 40, color: color),
+            const SizedBox(height: 10),
+            Text(
+              label,
+              style: const TextStyle(color: Colors.white70, fontSize: 14),
             ),
-          ),
-          const Spacer(),
-          Text(
-            time,
-            style: const TextStyle(color: Colors.white70, fontSize: 13),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildProgressCard(String title, double progress, Color color) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: const Color(0xFF1E1E1E),
-        borderRadius: BorderRadius.circular(14),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 15,
-            ),
-          ),
-          const SizedBox(height: 8),
-          LinearProgressIndicator(
-            value: progress,
-            backgroundColor: Colors.white12,
-            color: color,
-            minHeight: 6,
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
