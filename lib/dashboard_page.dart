@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'login_page.dart';
 
-// halaman dummy
 import 'jadwal_page.dart';
 import 'catatan_page.dart';
 import 'statistik_page.dart';
@@ -26,7 +25,6 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
-    // daftar halaman (tab) yang disesuaikan agar profil menerima username + fungsi kembali
     final List<Widget> pages = [
       const _HomeContent(),
       const JadwalPage(),
@@ -36,7 +34,7 @@ class _DashboardPageState extends State<DashboardPage> {
         username: widget.username,
         onBackToDashboard: () {
           setState(() {
-            _selectedIndex = 0; // 🔹 kembali ke tab Beranda
+            _selectedIndex = 0;
           });
         },
       ),
@@ -68,10 +66,8 @@ class _DashboardPageState extends State<DashboardPage> {
         ],
       ),
 
-      // isi halaman berganti sesuai tab bawah
       body: pages[_selectedIndex],
 
-      // bottom navigation bar
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: const Color(0xFF1E1E1E),
         type: BottomNavigationBarType.fixed,
@@ -97,7 +93,7 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 }
 
-// ========== HALAMAN UTAMA (HOME) ==========
+// HALAMAN UTAMA (HOME)
 class _HomeContent extends StatelessWidget {
   const _HomeContent();
 
@@ -121,9 +117,13 @@ class _HomeContent extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
-                _buildCard('Meeting Tim', Colors.purple, '10:00 AM'),
-                _buildCard('Presentasi Proyek', Colors.orange, '13:30 PM'),
-                _buildCard('Review Tugas', Colors.blueAccent, '16:00 PM'),
+                _buildCard('Aljabar GP-609', Colors.purple, '10:00 AM'),
+                _buildCard('Startup Bisnis GP-607', Colors.orange, '13:30 PM'),
+                _buildCard(
+                  'Sistem Basis Data GP-609',
+                  Colors.blueAccent,
+                  '16:00 PM',
+                ),
               ],
             ),
           ),

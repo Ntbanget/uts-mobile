@@ -72,7 +72,7 @@ class ProfilePage extends StatelessWidget {
                     Divider(color: Colors.white24),
                     _ProfileItem(
                       'Alamat',
-                      'Jalan Kamboja RT 02 RW 05, Pemalang',
+                      'Jalan Dokter Cipto No.24, Karangtempel, Kec. Semarang Tim., Kota Semarang,',
                     ),
                   ],
                 ),
@@ -91,7 +91,7 @@ class ProfilePage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              onPressed: onBackToDashboard, // 🔹 panggil callback
+              onPressed: onBackToDashboard,
               icon: const Icon(Icons.arrow_back),
               label: const Text(
                 'Kembali ke Dashboard',

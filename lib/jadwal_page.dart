@@ -6,26 +6,18 @@ class JadwalPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Map<String, String>> jadwalList = [
+      {'judul': 'statistik', 'waktu': '08:30 - 09:30', 'tempat': 'GP-609'},
       {
-        'judul': 'Rapat Tim Proyek',
-        'waktu': '08:30 - 09:30',
-        'tempat': 'Ruang Meeting 2',
-      },
-      {
-        'judul': 'Presentasi Kelas',
+        'judul': 'Mobile Programming',
         'waktu': '10:00 - 11:00',
-        'tempat': 'Aula Utama',
+        'tempat': 'GP-608',
       },
       {
-        'judul': 'Mengerjakan Tugas Flutter',
+        'judul': 'Grafika komputer',
         'waktu': '13:00 - 15:00',
-        'tempat': 'Kampus / Rumah',
+        'tempat': 'GP-401',
       },
-      {
-        'judul': 'Belajar Desain UI',
-        'waktu': '16:00 - 17:30',
-        'tempat': 'Online Course',
-      },
+      {'judul': 'Desain web', 'waktu': '16:00 - 17:30', 'tempat': 'GU-401'},
     ];
 
     return Scaffold(

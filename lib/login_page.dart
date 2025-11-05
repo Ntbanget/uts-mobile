@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dashboard_page.dart'; // pastikan ini sudah ada
+import 'dashboard_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -13,7 +13,6 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController passwordController = TextEditingController();
 
   void _login() {
-    // tidak perlu validasi, langsung masuk ke dashboard
     String username = usernameController.text.isEmpty
         ? "User"
         : usernameController.text;
@@ -42,7 +41,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 20),
 
-              // Judul aplikasi
               const Text(
                 "Sistem Akademik Mahasiswa",
                 style: TextStyle(
@@ -116,7 +114,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 20),
 
-              // Deskripsi aplikasi
               const Text(
                 "Aplikasi ini digunakan untuk memantau aktivitas akademik, "
                 "menampilkan jadwal, catatan, dan data mahasiswa secara real-time.",
